@@ -34,6 +34,11 @@
   border: var(--empty-swatch-c) 5px solid;
   color: var(--empty-swatch-c);
   font-size: 3em;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .color-swatch:hover {
