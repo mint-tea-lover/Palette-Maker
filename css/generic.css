@@ -1,0 +1,13 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+
+  --primary-c: black;
+  --secondary-c: gray;
+  --bg-c: rgb(237, 243, 248);
+  --text-c: rgb(23, 23, 24);
+  --shadow: 0 2px 3px rgba(42, 41, 100, 0.412);
+  --empty-swatch-c: rgb(160, 160, 169);
+  color: var(--text-c);
+  background-color: var(--bg-c);
+
+}
