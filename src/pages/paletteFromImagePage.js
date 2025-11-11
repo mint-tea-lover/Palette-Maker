@@ -1,4 +1,4 @@
-export function renderFromImage(outerElement){
+export function renderPaletteFromImagePage(outerElement){
     outerElement.innerHTML = '<h2>renderFromImage</h2>';
 
 }

@@ -1,20 +1,20 @@
-import { renderCreatePalette } from './pages/createPalette.js';
-import { renderFromImage } from './pages/fromImage.js';
-import { renderGallery } from './pages/gallery.js';
-import { renderLearn } from './pages/learn.js';
-import { renderGradient } from './pages/gradient.js';
+import { renderPaletteEditorPage } from './pages/paletteEditorPage.js';
+import { renderPaletteFromImagePage } from './pages/paletteFromImagePage.js';
+import { renderGalleryPage } from './pages/galleryPage.js';
+import { renderLearnPage } from './pages/learnPage.js';
+import { renderGradientEditorPage } from './pages/gradientEditorPage.js';
 
 const routes = {
-  '#create': renderCreatePalette,
-  '#from-image': renderFromImage,
-  '#gallery': renderGallery,
-  '#learn': renderLearn,
-  '#gradient': renderGradient
+  '#palette-editor': renderPaletteEditorPage,
+  '#palette-from-image': renderPaletteFromImagePage,
+  '#gallery': renderGalleryPage,
+  '#learn': renderLearnPage,
+  '#gradient-editor': renderGradientEditorPage
 };
 
 export function router() {
-  const hash = window.location.hash || '#create';
-  const render = routes[hash] || renderCreatePalette;
+  const hash = window.location.hash || '#';
+  const render = routes[hash] || renderPaletteEditorPage;
   const app = document.getElementById('app');
   app.innerHTML = '';
   render(app, ['#fff', '#1200bb', '#4bf55cff', '#4bf55cff','#4bf55cff']);

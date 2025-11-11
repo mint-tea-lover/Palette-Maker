@@ -1,3 +1,3 @@
-export function renderGradient(outerElement){
+export function renderGradientEditorPage(outerElement){
     outerElement.innerHTML = '<h2>renderGradient</h2>';
 }

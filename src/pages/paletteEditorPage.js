@@ -1,7 +1,7 @@
 import { createElement } from '../utils/createElement.js';
 import { initColorInput } from '../components/colorInput.js';
 
-export function renderCreatePalette(outerElement, colors = []) {
+export function renderPaletteEditorPage(outerElement, colors = []) {
 
   const section = createElement('section', outerElement);
 
