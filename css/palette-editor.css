@@ -50,6 +50,15 @@
   background-color: aquamarine;
 }
 
+.color-input {
+  opacity: 0;
+}
+
+.visible {
+  display: unset;
+}
+
+
 @media screen and (max-width: 1000px) {
   .palette-colors {
     flex-wrap: wrap;

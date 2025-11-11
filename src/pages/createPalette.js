@@ -1,4 +1,5 @@
-import {createElement} from '../utils/createElement.js';
+import { createElement } from '../utils/createElement.js';
+import { initColorInput } from '../components/colorInput.js';
 
 export function renderCreatePalette(outerElement, colors = []) {
 
@@ -8,22 +9,33 @@ export function renderCreatePalette(outerElement, colors = []) {
   title.textContent = 'Palette Editor';
 
   const editor = createElement('div', section, 'palette-editor');
-  
+
   const palette = createElement('div', editor, 'palette-colors');
   const properties = createElement('div', editor, 'palette-properties');
 
-  if (colors.length > 0) {
+  const swatches = [];
+
+  if (colors) {
     for (let c of colors) {
-      const swatch = createElement('button', palette, 'color-swatch');
-      swatch.style.backgroundColor = c;
+      const div = createElement('div', palette, 'color-swatch');
+      div.style.backgroundColor = c;
+      const colorInput = createElement('input', div, ['color-input'], { 'type': 'color' });
+      swatches.push(div);
     }
   }
 
   else {
-    for (let i = 0; i < 6; i++) 
-      createElement('button', palette, 'color-swatch');
+    for (let i = 0; i < 6; i++) {
+      const div = createElement('div', palette, 'color-swatch');
+      const colorInput = createElement('input', div, ['color-input'], { 'type': 'color' });
+      swatches.push(div);
+    }
   }
 
+  swatches.forEach((swatch) => {
+    initColorInput(swatch);
+  })
+
   const addBtn = createElement('button', palette, ['color-swatch', 'add-color-btn']);
-      addBtn.textContent = '+';
+  addBtn.textContent = '+';
 }
