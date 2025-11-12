@@ -17,7 +17,6 @@ export function createElement(tag, parent, classes = [], attr={}) {
 
   if (attr) {
     for (let attrName in attr) {
-      console.log(attrName, attr[attrName])
       el.setAttribute(attrName, attr[attrName]);
       
     }
