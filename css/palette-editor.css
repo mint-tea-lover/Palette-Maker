@@ -24,7 +24,6 @@
   cursor: pointer;
   box-sizing: border-box;
   transition: transform 0.2s ease;
-  box-sizing: border-box;
   box-shadow: var(--shadow);
   background-color: var(--empty-swatch-c);
 }
