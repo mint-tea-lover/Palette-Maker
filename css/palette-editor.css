@@ -26,6 +26,7 @@
   transition: transform 0.2s ease;
   box-shadow: var(--shadow);
   background-color: var(--empty-swatch-c);
+  position: relative;
 }
 
 .add-color-btn {
@@ -50,8 +51,26 @@
 }
 
 .color-input {
+  width: 0;
+  height: 0;
   opacity: 0;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
+
+.delete-color-btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.color-swatch:hover .delete-color-btn {
+  opacity: 1;
+}
+
 
 .visible {
   display: unset;
@@ -69,5 +88,9 @@
   .palette-colors .color-swatch {
     aspect-ratio: 1 / 0.6;
     flex: 0 1 min(20%, 100px);
+  }
+
+  .add-color-btn {
+    font-size: 2em;
   }
 }
