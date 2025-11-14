@@ -3,14 +3,14 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  padding: 40px;
+  padding: clamp(1rem, 5vw, 5rem);
 }
 
 .palette-colors {
   flex: 1 1 800px;
   display: flex;
   flex-wrap: wrap; /* разрешаем перенос строк */
-  gap: 10px; /* расстояние между квадратиками */
+  gap: 15px; /* расстояние между квадратиками */
   margin: 0 auto;
   align-items: normal;
   flex-wrap: unset;
@@ -20,20 +20,21 @@
 
 .color-swatch {
   flex: 1 1 80px; /* фиксированная базовая ширина */
-  border-radius: 8px;
+  border-radius: 0.4rem;
   cursor: pointer;
   box-sizing: border-box;
   transition: transform 0.2s ease;
-  box-shadow: var(--shadow);
+  box-shadow: 0px 0px 6px 2px var(--shadow-c);
   background-color: var(--empty-swatch-c);
   position: relative;
 }
 
 .add-color-btn {
   background: transparent;
-  border: var(--empty-swatch-c) 5px solid;
+  border: var(--empty-swatch-c) 3px dashed;
+  box-shadow: none;
   color: var(--empty-swatch-c);
-  font-size: 3em;
+  font-size: 2.6rem;
   min-width: 0;
   min-height: 0;
   display: flex;
@@ -61,23 +62,33 @@
 
 .delete-color-btn {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 0.3rem;
+  left: 0.3rem;
+  box-shadow: 0 0 3px 2px var(--shadow-c);
   opacity: 0;
+  padding: 2px;
   transition: all 0.3s;
+  background-color: var(--bg-c);
+  color: var(--text-c);
+  border-radius: 19px;
+  display: flex;
+  align-items: center; justify-content: center;
+}
+
+.delete-color-btn svg {
+  width: 1.3rem;
+  height: 1.3rem;
 }
 
 .color-swatch:hover .delete-color-btn {
   opacity: 1;
 }
 
-
 .visible {
   display: unset;
 }
 
-
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 800px) {
   .palette-colors {
     flex-wrap: wrap;
     align-items: flex-start;
@@ -86,11 +97,11 @@
   }
 
   .palette-colors .color-swatch {
-    aspect-ratio: 1 / 0.6;
+    aspect-ratio: 1 / 1;
     flex: 0 1 min(20%, 100px);
   }
 
-  .add-color-btn {
-    font-size: 2em;
+  .delete-color-btn {
+    opacity: 1;
   }
 }

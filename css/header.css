@@ -1,18 +1,22 @@
-header {
+.page-header {
   position: fixed;
   max-width: 800px;
-  width: 100%;
+  width: 95%;
   transform: translateX(-50%);
   left: 50%;
   top: -20px;
   padding: 10px;
   padding-top: 30px;
-  box-shadow: 0 3px 9px rgba(42, 41, 100, 0.412);
-  border-radius: 0.7em;
-  color: rgb(65, 66, 73);
+  box-shadow: 0px 0px 6px 2px var(--shadow-c);
+  border-radius: 0.4em;
   z-index: 10;
   background-color: var(--bg-c);
   user-select: none;
+}
+
+.page-header svg {
+  width: 1.3rem;
+  height: 1.3rem
 }
 
 main {
