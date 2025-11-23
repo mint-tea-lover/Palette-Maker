@@ -3,9 +3,9 @@ body {
 
   --primary-c: black;
   --secondary-c: gray;  
-  --bg-c: rgb(237, 243, 248);
+  --bg-c: rgb(244, 248, 252);
   --text-c: rgb(65, 66, 73);
-  --shadow-c: rgba(63, 61, 164, 0.196);
+  --shadow-c: rgba(95, 93, 174, 0.393);
   --empty-swatch-c: rgb(153, 153, 182);
   color: var(--text-c);
   background-color: var(--bg-c);
@@ -14,6 +14,12 @@ body {
 
 html {
   font-size: 18px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 80px;
 }
 
 @media screen and (min-width: 601px) and (max-width: 800px){
