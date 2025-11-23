@@ -22,6 +22,12 @@ h2 {
   margin-top: 80px;
 }
 
+.btn {
+  border-radius: 5px;
+  background-color: var(--bg-c);
+  padding: 10px 20px;
+}
+
 @media screen and (min-width: 601px) and (max-width: 800px){
   html {
     font-size: 16px;

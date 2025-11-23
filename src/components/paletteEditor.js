@@ -50,3 +50,9 @@ function appendColorSwatch(parent, color) {
     swatch.style.backgroundColor = color;
   }
 }
+
+// Собирает цвета палитры
+export function getCurrentColors(parent) {
+  const swatches = parent.querySelectorAll('.color-swatch');
+  return Array.from(swatches).map(swatch => swatch.style.backgroundColor);
+}
