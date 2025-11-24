@@ -5,7 +5,7 @@ import { saveItem, PaletteTypes } from '../utils/storage.js';
 
 export function renderPaletteEditorPage(outerElement, colors = []) {
 
-  const section = createElement('section', outerElement);
+  const section = createElement('section', outerElement, ['editor-container']);
 
   const title = createElement('h2', section);
   title.textContent = 'Palette Editor';

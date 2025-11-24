@@ -1,21 +1,27 @@
+.editor-container {
+  padding: 1rem;
+}
+
 .palette-editor {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  padding: 20px;
 }
 
 .palette-colors {
   flex: 1 1 800px;
   display: flex;
-  flex-wrap: wrap; /* разрешаем перенос строк */
-  gap: 15px; /* расстояние между квадратиками */
+  flex-wrap: wrap;
+  gap: 15px; 
   margin: 0 auto;
   align-items: normal;
   flex-wrap: unset;
   justify-content: flex-start;
   height: 60vh;
+  align-items: flex-start;
+  align-content: flex-start;
+  height: fit-content;
 }
 
 .palette-item {
@@ -27,6 +33,9 @@
   box-shadow: 0px 2px 5px 2px var(--shadow-c);
   background-color: var(--empty-swatch-c);
   position: relative;
+
+  aspect-ratio: 1.7 / 1;
+  flex: 0 1 min(30%, 120px);
 }
 
 
@@ -87,6 +96,7 @@
 
 .save-btn {
   box-shadow: 0px 3px 5px 1px var(--shadow-c);
+  margin: 20px 0 20px;
 }
 
 .visible {
@@ -101,9 +111,9 @@
     height: fit-content;
   }
 
-  .palette-colors .color-swatch {
-    aspect-ratio: 1 / 1;
-    flex: 0 1 min(20%, 100px);
+  .palette-colors .palette-item {
+    aspect-ratio: 1.7 / 1;
+    flex: 0 1 min(25%, 120px);
   }
 
   .delete-color-btn {
