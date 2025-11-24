@@ -16,6 +16,7 @@ export function router() {
   const hash = window.location.hash || '#';
   const render = routes[hash] || renderPaletteEditorPage;
   const app = document.getElementById('app');
+  const params = new URL(window.location).searchParams;
   app.innerHTML = '';
-  render(app);
+  render(app, Object.fromEntries(params.entries()));
 }

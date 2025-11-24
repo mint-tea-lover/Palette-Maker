@@ -1,6 +1,7 @@
 import { getSavedItems, deleteItem, PaletteTypes } from "../utils/storage.js"
 import { createElement } from "../utils/createElement.js";
 
+
 export function renderGalleryPage(outerElement) {
   // Очистка родителя
   outerElement.innerHTML = '';
@@ -36,7 +37,8 @@ function createGalleryCard(item) {
   card.dataset.id = item.id;
 
   // Контейнер превью
-  let previewContainer = createElement('div', card, ['preview-container']);
+  let previewContainer = createElement('a', card, ['preview-container']);
+  previewContainer.href = `?palette_id=${item.id}#palette-editor`;
 
   // Генерация превью
   if (item.type === PaletteTypes.PALETTE || item.type === PaletteTypes.IMAGE) {
@@ -80,6 +82,9 @@ function createGalleryCard(item) {
       card.remove(); // Удаляем только карточку, не перерисовывая всю страницу
     }
   });
+
+
+
 
   return card;
 }

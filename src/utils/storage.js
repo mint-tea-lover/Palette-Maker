@@ -37,6 +37,11 @@ export function saveItem(item) {
 
 // Удалить
 export function deleteItem(id) {
-  const items = getSavedItems().filter(i => i.id !== id);
+  const items = getSavedItems().filter(i => i.id != id);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+}
+
+export function getItemById(id) {
+  const item = getSavedItems().find(i => i.id == id);
+  return item;
 }
