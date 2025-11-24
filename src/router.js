@@ -17,5 +17,5 @@ export function router() {
   const render = routes[hash] || renderPaletteEditorPage;
   const app = document.getElementById('app');
   app.innerHTML = '';
-  render(app, ['#fff', '#1200bb', '#4bf55cff', '#4bf55cff','#4bf55cff']);
+  render(app);
 }
