@@ -55,5 +55,5 @@ function appendColorSwatch(parent, color) {
 // Собирает цвета палитры
 export function getCurrentColors(parent) {
   const swatches = parent.querySelectorAll('.color-swatch');
-  return Array.from(swatches).map(swatch => swatch.style.backgroundColor);
+  return Array.from(swatches).map(swatch => getComputedStyle(swatch).backgroundColor);
 }
