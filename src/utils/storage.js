@@ -16,7 +16,7 @@ export function getSavedItems() {
 // Создать новое сохранение
 export function saveItem(item) {
   const items = getSavedItems();
-  
+
   // Добавляем id и дату автоматически
   const newItem = {
     ...item,
@@ -25,7 +25,7 @@ export function saveItem(item) {
   };
 
   items.unshift(newItem); // добавляем в начало
-  
+
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
     return true;
@@ -41,7 +41,35 @@ export function deleteItem(id) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
 }
 
+// Получить элемент по ID
 export function getItemById(id) {
   const item = getSavedItems().find(i => i.id == id);
   return item;
+}
+
+// Обновить элемент
+export function updateItem(updatedItem) {
+  const items = getSavedItems();
+
+  // 1. Находим индекс элемента, который нужно обновить
+  const index = items.findIndex(item => item.id === updatedItem.id);
+
+  if (index !== -1) {
+    // 2. Создаем новый объект, сохраняя старую дату создания, но добавляя новую дату обновления
+    items[index] = {
+      ...updatedItem,
+      date: items[index].date, // Сохраняем оригинальную дату создания
+      lastUpdated: new Date().toLocaleDateString(), // Опционально: дата последнего обновления
+    };
+
+    // 3. Сохраняем обновленный массив обратно
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+      return true;
+    } catch (e) {
+      console.error('Ошибка сохранения при обновлении:', e);
+      return false;
+    }
+  }
+  return false; // Элемент не найден
 }

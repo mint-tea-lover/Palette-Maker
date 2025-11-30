@@ -38,7 +38,7 @@ function createGalleryCard(item) {
 
   // Контейнер превью
   let previewContainer = createElement('a', card, ['preview-container']);
-  previewContainer.href = `?palette_id=${item.id}#palette-editor`;
+  previewContainer.href = `#palette-editor?palette_id=${item.id}`;
 
   // Генерация превью
   if (item.type === PaletteTypes.PALETTE || item.type === PaletteTypes.IMAGE) {

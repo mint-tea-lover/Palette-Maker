@@ -7,6 +7,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  margin-bottom: 20px;
 }
 
 .palette-colors {
@@ -25,7 +26,7 @@
   border-radius: 0.4rem;
   cursor: pointer;
   box-sizing: border-box;
-  transition: transform 0.2s ease;
+  transition: all 0.3s ease;
   box-shadow: 0px 2px 5px 2px var(--shadow-c);
   background-color: var(--empty-swatch-c);
   position: relative;
@@ -34,7 +35,7 @@
 
 .add-color-btn {
   background: transparent;
-  border: var(--empty-swatch-c) 3px dashed;
+  border: var(--empty-swatch-c) 4px dashed;
   box-shadow: none;
   color: var(--empty-swatch-c);
   font-size: 2.6rem;
@@ -45,8 +46,13 @@
   justify-content: center;
 }
 
+.add-color-btn:hover {
+  font-size: 3rem;
+}
+
 .color-swatch:hover {
   transform: scale(1.05);
+  box-shadow: none;
 }
 
 .palette-properties {
@@ -90,7 +96,16 @@
 
 .save-btn {
   box-shadow: 0px 3px 5px 1px var(--shadow-c);
-  margin: 20px 0 20px;
+  margin: 0 0 10px;
+  background-color: transparent;
+  border: currentColor 3px solid;
+  font-weight: 700;
+  color: var(--text-c)
+}
+
+.palette-actions {
+  display: flex;
+  gap: 20px;
 }
 
 .visible {

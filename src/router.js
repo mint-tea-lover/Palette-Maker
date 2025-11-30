@@ -13,10 +13,20 @@ const routes = {
 };
 
 export function router() {
-  const hash = window.location.hash || '#';
-  const render = routes[hash] || renderPaletteEditorPage;
+  const rawHash = window.location.hash || '#';
+  // Делим на путь и параметры
+  const [routePath, queryString] = rawHash.split('?');
+
+  // Парсим параметры
+  // Если queryString есть, превращаем его в объект, иначе - пустой объект
+  const params = queryString 
+    ? Object.fromEntries(new URLSearchParams(queryString)) 
+    : {};
+
+  // Находим рендер-функцию
+  const render = routes[routePath] || renderPaletteEditorPage;
   const app = document.getElementById('app');
-  const params = new URL(window.location).searchParams;
+  
   app.innerHTML = '';
-  render(app, Object.fromEntries(params.entries()));
+  render(app, params);
 }

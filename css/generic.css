@@ -1,15 +1,13 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
-
-  --primary-c: black;
-  --secondary-c: gray;  
+  --primary-c: rgb(28, 28, 29);
+  --secondary-c: gray;
   --bg-c: rgb(255, 255, 255);
   --text-c: rgb(65, 66, 73);
-  --shadow-c: rgba(95, 93, 174, 0.393);
+  --shadow-c: rgba(17, 17, 72, 0.229);
   --empty-swatch-c: rgb(153, 153, 182);
   color: var(--text-c);
   background-color: var(--bg-c);
-
 }
 
 html {
@@ -26,9 +24,15 @@ h2 {
   border-radius: 5px;
   background-color: var(--bg-c);
   padding: 10px 20px;
+  transition: all 0.3s;
 }
 
-@media screen and (min-width: 601px) and (max-width: 800px){
+.btn:hover {
+  transform: scale(1.1);
+  box-shadow: none;
+}
+
+@media screen and (min-width: 601px) and (max-width: 800px) {
   html {
     font-size: 16px;
   }
