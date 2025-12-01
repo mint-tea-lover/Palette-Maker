@@ -1,7 +1,6 @@
 .page-header {
   position: fixed;
-  max-width: 800px;
-  width: 95%;
+  width: 100%;
   transform: translateX(-50%);
   left: 50%;
   top: -20px;
@@ -10,7 +9,8 @@
   box-shadow: 0px 0px 6px 2px var(--shadow-c);
   border-radius: 0.4em;
   z-index: 10;
-  background-color: var(--bg-c);
+  background-color: var(--primary-c);
+  color: var(--light-text-c);
   user-select: none;
 }
 
