@@ -30,7 +30,7 @@ export function saveItem(item) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
     return true;
   } catch (e) {
-    alert('Ошибка сохранения! Возможно слишком большой размер файла.');
+    alert('Ошибка сохранения! Возможно слишком большой размер файла.\n', e);
     return false;
   }
 }
