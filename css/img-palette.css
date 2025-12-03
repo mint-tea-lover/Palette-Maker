@@ -1,0 +1,61 @@
+.img-palette-container {
+  display: grid; 
+  grid-template-columns: minmax(300px, 1fr) 1.5fr; 
+  min-height: 90vh; 
+  gap: 20px; 
+  margin-bottom: 20px;
+  padding: 30px;
+  width: 100%;
+}
+
+.img-container {
+  background-color: var(--secondary-c);
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.img-container .loaded-image {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  object-fit: contain;
+  object-position: top ;
+}
+
+.img-editor-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  min-height: 0;
+}
+
+.img-container, .img-editor-container{
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.palette-container {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Медиа-запрос для маленького экрана (до 650px) */
+@media screen and (max-width: 650px) {
+  .img-palette-container {
+    padding: 15px; 
+    min-height: 90vh; 
+    height: auto; 
+    grid-template-columns: 1fr;
+  }
+  .img-container {
+    height: 50vh;
+  }
+  .palette-container {
+    min-height: 50vh;
+  }
+}

@@ -1,13 +1,13 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
-  --primary-c: rgb(28, 28, 29);
-  --secondary-c: gray;
+  --primary-c: rgb(57, 57, 61);
+  --secondary-c: rgb(230, 233, 243);
   --accent-c: aqua;
   --bg-c: rgb(255, 255, 255);
   --primary-text-c: rgb(65, 66, 73);
   --light-text-c: white;
   --shadow-c: rgba(17, 17, 72, 0.229);
-  --empty-swatch-c: rgb(153, 153, 182);
+  --empty-swatch-c: rgb(160, 160, 169);
   color: var(--primary-text-c);
   background-color: var(--bg-c);
 }
@@ -27,11 +27,13 @@ h2 {
   background-color: var(--bg-c);
   padding: 10px 20px;
   transition: all 0.3s;
+  width: fit-content;
+  box-shadow: 2px 2px 4px 2px var(--shadow-c);
 }
 
 .btn:hover {
   transform: scale(1.1);
-  box-shadow: none;
+
 }
 
 @media screen and (min-width: 601px) and (max-width: 800px) {

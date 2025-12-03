@@ -1,5 +1,7 @@
 .editor-container {
   padding: 1rem;
+  width: 100%;
+
 }
 
 .palette-editor {
@@ -8,17 +10,17 @@
   flex-wrap: wrap;
   gap: 20px;
   margin-bottom: 20px;
+  height: auto;
+  min-height: 70vh;
 }
 
 .palette-colors {
   flex: 1 1 800px;
-  display: grid;
-  height: 50vh;
-  grid-auto-flow: column;
-  grid-template-rows: 1fr;
-  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); 
+  grid-auto-rows: minmax(80px, 1fr);
+  min-height: 0;
   gap: 15px;
-  align-items: stretch;
   margin: 0 auto;
 }
 
@@ -30,7 +32,7 @@
   box-shadow: 0px 2px 5px 2px var(--shadow-c);
   background-color: var(--empty-swatch-c);
   position: relative;
-  min-height: 100%;
+  min-height: 0;
 }
 
 .add-color-btn {
@@ -46,9 +48,6 @@
   justify-content: center;
 }
 
-.add-color-btn:hover {
-  font-size: 3rem;
-}
 
 .color-swatch:hover {
   transform: scale(1.05);
@@ -56,8 +55,10 @@
 }
 
 .palette-properties {
-  width: 300px;
-  background-color: aquamarine;
+  width: 40vh;
+  background-color: var(--secondary-c);
+  padding: 10px;
+  border-radius: 8px;
 }
 
 .color-input {
@@ -114,16 +115,11 @@
 
 @media screen and (max-width: 800px) {
   .palette-colors {
-    grid-auto-flow: row;
-    height: fit-content;
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-    grid-auto-rows: auto;
-    width: 100%;
-    margin: 0;
+    
   }
 
   .palette-colors .palette-item {
-    aspect-ratio: 1 / 1;
+    
   }
 
   .delete-color-btn {
