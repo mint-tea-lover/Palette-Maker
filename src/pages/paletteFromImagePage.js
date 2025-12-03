@@ -1,10 +1,30 @@
 import { getCurrentColors, renderPaletteEditor, setPaletteColors } from "../components/paletteEditor.js";
 import { createElement } from "../utils/createElement.js";
-import { rgbToHex } from "../utils/colorConverter.js"
+import { rgbToHex } from "../utils/colorConverter.js";
+import { saveItem, getItemById, updateItem, PaletteTypes } from "../utils/storage.js";
 
 const colorThief = new ColorThief();
 
-export function renderPaletteFromImagePage(outerElement) {
+export function renderPaletteFromImagePage(outerElement, params = {}) {
+
+    const currentPaletteId = params.palette_id;
+    let initialColors = [];
+    let initialImg = '';
+    let currentPalette = null;
+    let isEditing = !!currentPaletteId; // Флаг, который показывает, что мы в режиме редактирования
+
+    if (isEditing) {
+        currentPalette = getItemById(currentPaletteId);
+        if (currentPalette) {
+            initialColors = currentPalette.colors;
+            initialImg = currentPalette.imageBase64;
+        } else {
+            // Если ID был в URL, но палитра не найдена (удалена), переходим в режим создания
+            isEditing = false;
+        }
+    }
+
+
     const container = createElement("div", outerElement, ['img-palette-container']);
 
     // --- Контейнер изображения и загрузчик ---
@@ -25,8 +45,8 @@ export function renderPaletteFromImagePage(outerElement) {
 
     // Элемент <img> для отображения загруженного изображения
     const imgElement = createElement('img', imgContainer, ['loaded-image']);
-    imgElement.src = '';
     imgElement.alt = 'Uploaded image';
+    imgElement.src = initialImg;
 
     // Скрываем начальное тестовое изображение, которое вы вставляли,
     // теперь отображаем только загруженный файл.
@@ -39,7 +59,7 @@ export function renderPaletteFromImagePage(outerElement) {
     generatePaletteBtn.textContent = 'Generate Palette';
 
     const paletteContainer = createElement('div', editorContainer, ['palette-container']);
-    const editorElement = renderPaletteEditor(paletteContainer, []);
+    const editorElement = renderPaletteEditor(paletteContainer, initialColors);
 
     // --- Логика загрузки файла ---
     fileInput.addEventListener('change', (event) => {
@@ -79,6 +99,45 @@ export function renderPaletteFromImagePage(outerElement) {
             };
         }
     });
+
+    const actionsGroup = createElement('div', container, ['palette-actions']);
+
+    // --- Сохранение ---
+    const saveBtn = createElement('button', actionsGroup, ['save-btn', 'btn']);
+    saveBtn.textContent = 'Save Palette';
+
+    if (isEditing) {
+        saveBtn.textContent = 'Save as new palette'
+
+        const changeBtn = createElement('button', actionsGroup, ['save-btn', 'btn', 'save-changes-btn']);
+        changeBtn.textContent = "Save Changes"
+        changeBtn.addEventListener('click', () => {
+            currentPalette.colors = getCurrentColors(editorElement);
+            currentPalette.imageBase64 = imgElement.src;
+            updateItem(currentPalette);
+            alert('Changes saved!');
+        })
+    }
+
+    saveBtn.addEventListener('click', () => {
+        const name = prompt('Name your palette', 'New palette');
+
+        if (name) {
+            const colors = getCurrentColors(editorElement); // Собираем цвета
+
+            const itemToSave = {
+                name: name,
+                colors: colors,
+                type: PaletteTypes.IMAGE, // тип image-palette
+                imageBase64: imgElement.src // сохраняем катринку
+            };
+
+            if (saveItem(itemToSave)) {
+                alert('Saved!');
+            }
+        }
+    });
+
 }
 
 /**
@@ -90,10 +149,10 @@ function generatePalette(imgElement, editorElement) {
     try {
         // Получаем палитру из 5 цветов (количество можно настроить)
         const rgbPalette = colorThief.getPalette(imgElement, getCurrentColors(editorElement).length, 10);
-        
+
         // Преобразуем массив RGB ([r, g, b]) в массив HEX (#rrggbb)
         const hexPalette = rgbPalette.map(([r, g, b]) => rgbToHex(r, g, b));
-        
+
         // Обновляем отрисованную палитру
         setPaletteColors(editorElement, hexPalette);
 
