@@ -158,7 +158,7 @@ function generatePalette(imgElement, editorElement) {
 
     } catch (e) {
         console.error("Ошибка при получении палитры. Убедитесь, что изображение загружено и доступно для Canvas (CORS).", e);
-        alert("Failed to load palette. Check console for detales");
+        alert("Failed to load palette. Detales: " + e.message);
     }
 }
 
