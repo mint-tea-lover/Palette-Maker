@@ -24,8 +24,11 @@ export function renderPaletteFromImagePage(outerElement, params = {}) {
         }
     }
 
+    const section = createElement('section', outerElement);
+    const title = createElement('h2', section);
+    title.textContent = `Palette from image - ${isEditing ? currentPalette?.name : 'New palette'}`;
 
-    const container = createElement("div", outerElement, ['img-palette-container']);
+    const container = createElement("section", section, ['img-palette-container']);
 
     // --- Контейнер изображения и загрузчик ---
     const imgContainer = createElement('div', container, ['img-container']);
@@ -150,6 +153,10 @@ function generatePalette(imgElement, editorElement) {
         // Получаем палитру из 5 цветов (количество можно настроить)
         const rgbPalette = colorThief.getPalette(imgElement, getCurrentColors(editorElement).length, 10);
 
+        if (rgbPalette === null) {
+            alert('Failed to process image. Try another image or resave current image and try again');
+            return;
+        }
         // Преобразуем массив RGB ([r, g, b]) в массив HEX (#rrggbb)
         const hexPalette = rgbPalette.map(([r, g, b]) => rgbToHex(r, g, b));
 
