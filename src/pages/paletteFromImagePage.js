@@ -89,7 +89,7 @@ export function renderPaletteFromImagePage(outerElement) {
 function generatePalette(imgElement, editorElement) {
     try {
         // Получаем палитру из 5 цветов (количество можно настроить)
-        const rgbPalette = colorThief.getPalette(imgElement, getCurrentColors(editorElement).length);
+        const rgbPalette = colorThief.getPalette(imgElement, getCurrentColors(editorElement).length, 10);
         
         // Преобразуем массив RGB ([r, g, b]) в массив HEX (#rrggbb)
         const hexPalette = rgbPalette.map(([r, g, b]) => rgbToHex(r, g, b));

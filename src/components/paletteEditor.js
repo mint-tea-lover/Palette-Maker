@@ -43,7 +43,7 @@ function appendColorSwatch(parent, color) {
   const addBtn = parent.querySelector('.add-color-btn');
   parent.insertBefore(swatch, addBtn);
 
-  initColorInput(swatch);
+  initColorInput(swatch, color);
   initDeleteButton(swatch, deleteButton);
 
   if (color) {

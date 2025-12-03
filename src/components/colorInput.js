@@ -1,5 +1,6 @@
-export function initColorInput(colorSwatch) {
+export function initColorInput(colorSwatch, color) {
   const inp = colorSwatch.querySelector('.color-input');
+  inp.value = color;
   const del = colorSwatch.querySelector('.delete-color-btn');
   colorSwatch.addEventListener('click', (e) => {
     if (!del.contains(e.target)){

@@ -83,8 +83,5 @@ function createGalleryCard(item) {
     }
   });
 
-
-
-
   return card;
 }
