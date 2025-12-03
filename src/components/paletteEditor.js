@@ -57,3 +57,33 @@ export function getCurrentColors(parent) {
   const swatches = parent.querySelectorAll('.color-swatch');
   return Array.from(swatches).map(swatch => getComputedStyle(swatch).backgroundColor);
 }
+
+
+/**
+ * Очищает контейнер редактора и перерисовывает палитру с новыми цветами.
+ * @param {HTMLElement} editorElement Главный контейнер редактора, который возвращает renderPaletteEditor
+ * @param {Array<string>} hexColors Массив HEX-строк цветов (например, ['#FF0000', '#00FF00'])
+ */
+export function setPaletteColors(editorElement, hexColors) {
+    // 1. Находим контейнер, который нужно очистить и обновить
+    const palette = editorElement.querySelector('.palette-colors');
+    
+    // 2. Очищаем все старые цвета и кнопку '+'
+    // Нам нужно удалить все, кроме самой родительской div, которую мы передали при рендере
+    while (palette.firstChild) {
+        palette.removeChild(palette.firstChild);
+    }
+    
+    // 3. Добавляем новые цвета
+    hexColors.forEach(hex => {
+        // Предполагаем, что appendColorSwatch умеет работать с HEX
+        appendColorSwatch(palette, hex);
+    });
+    
+    // 4. Добавляем кнопку '+' обратно
+    const addBtn = createElement('button', palette, ['palette-item', 'add-color-btn']);
+    addBtn.textContent = '+';
+    addBtn.addEventListener('click', () => {
+        appendColorSwatch(palette);
+    })
+}
