@@ -30,7 +30,21 @@ export function saveItem(item) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
     return true;
   } catch (e) {
-    alert('Ошибка сохранения! Возможно слишком большой размер файла.\n', e);
+    let userMessage = 'Ошибка сохранения палитры!';
+    
+    // Добавляем информацию о причине, чтобы помочь пользователю
+    if (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
+        userMessage += ' Возможно, превышен лимит памяти браузера (обычно 5-10 МБ). Попробуйте удалить старые данные или уменьшить размер картинки.';
+    } else {
+        userMessage += ' Неизвестная ошибка. Детали: ' + e.message;
+    }
+    
+    // Выводим предупреждение
+    alert(userMessage);
+
+    // Ошибку выводим в консоль
+    console.error('Ошибка при работе с localStorage:', e);
+
     return false;
   }
 }
