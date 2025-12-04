@@ -1,12 +1,13 @@
-/* Добавь в generic.css или создай gradient.css */
-
+.gradient-section {
+  padding: 30px;
+}
 .gradient-preview-box {
   width: 100%;
   height: 250px;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  box-shadow: 2px 3px 10px var(--shadow-c);
   margin-bottom: 20px;
-  border: 2px solid #fff; /* Чтобы видно было на белом фоне */
+  border: 3px solid #fff; /* Чтобы видно было на белом фоне */
 }
 
 .gradient-controls {

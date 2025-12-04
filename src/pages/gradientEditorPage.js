@@ -17,6 +17,11 @@ export function renderGradientEditorPage(outerElement) {
   // 2. КОНТРОЛЛЫ (Угол и Тип)
   const controls = createElement('div', section, ['gradient-controls']);
   
+  // -- Переключатель типа (Linear/Radial) --
+  const typeSelectBtn = createElement('button', controls, ['btn']);
+  let gradientType = 'Linear';
+  typeSelectBtn.textContent = gradientType;
+
   // -- Ползунок угла --
   const angleLabel = createElement('label', controls);
   angleLabel.textContent = 'Angle: 90deg';
@@ -24,18 +29,9 @@ export function renderGradientEditorPage(outerElement) {
   const angleInput = createElement('input', controls, ['angle-slider'], {
     type: 'range',
     min: '0',
-    max: '360',
+    max: '180',
     value: '90'
   });
-
-  // -- Переключатель типа (Linear/Radial) --
-  const typeSelect = createElement('select', controls, ['type-select']);
-  ['linear', 'radial'].forEach(type => {
-    const opt = createElement('option', typeSelect);
-    opt.value = type;
-    opt.textContent = type.charAt(0).toUpperCase() + type.slice(1);
-  });
-
 
   // 3. СПИСОК ЦВЕТОВ (Используем твой готовый редактор!)
   const paletteContainer = createElement('div', section, ['palette-container-wrapper']);
@@ -48,7 +44,7 @@ export function renderGradientEditorPage(outerElement) {
   const updatePreview = () => {
     const colors = getCurrentColors(editor);
     const angle = angleInput.value;
-    const type = typeSelect.value;
+    const type = gradientType.toLocaleLowerCase();
 
     // Обновляем текст лейбла
     angleLabel.textContent = `Angle: ${angle}deg`;
@@ -76,7 +72,16 @@ export function renderGradientEditorPage(outerElement) {
 
   // Слушаем изменения в контролах
   angleInput.addEventListener('input', updatePreview);
-  typeSelect.addEventListener('change', updatePreview);
+
+  typeSelectBtn.addEventListener('click', () => {
+    if (gradientType == 'Linear'){
+        gradientType = 'Radial'
+    }else {
+        gradientType = 'Linear'
+    }
+    typeSelectBtn.textContent = gradientType;
+    updatePreview();
+  })
 
   // Слушаем изменения в редакторе цветов.
   // Так как renderPaletteEditor не возвращает callback изменений, 
