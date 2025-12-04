@@ -2,6 +2,7 @@ import { getCurrentColors, renderPaletteEditor, setPaletteColors, resetColorSlid
 import { createElement } from "../utils/createElement.js";
 import { rgbToHex } from "../utils/colorConverter.js";
 import { saveItem, getItemById, updateItem, PaletteTypes } from "../utils/storage.js";
+import { compressImage } from "../utils/imageUtils.js";
 
 
 const colorThief = new ColorThief();
@@ -50,11 +51,7 @@ export function renderPaletteFromImagePage(outerElement, params = {}) {
     // Элемент <img> для отображения загруженного изображения
     const imgElement = createElement('img', imgContainer, ['loaded-image']);
     imgElement.alt = 'Uploaded image';
-    imgElement.src = initialImg;
-
-    // Скрываем начальное тестовое изображение, которое вы вставляли,
-    // теперь отображаем только загруженный файл.
-    // Если нужно стартовое изображение, можно поставить ему src='...'
+    imgElement.src = initialImg; // Если новая палитра - будет пустая строка
 
     // --- Контейнер редактора ---
     const editorContainer = createElement('div', container, ['img-editor-container']);
@@ -117,9 +114,15 @@ export function renderPaletteFromImagePage(outerElement, params = {}) {
         changeBtn.textContent = "Save Changes"
         changeBtn.addEventListener('click', () => {
             currentPalette.colors = getCurrentColors(editorElement);
-            currentPalette.imageBase64 = imgElement.src;
-            updateItem(currentPalette);
-            alert('Changes saved!');
+
+            try {
+                currentPalette.imageBase64 = compressImage(imgElement, 0.7, 800);
+                updateItem(currentPalette);
+                alert('Changes saved!');
+            } catch (e) {
+                alert('Ошибка при сохранении или сжатии изображения: ' + e.message);
+            }
+
         })
     }
 
@@ -128,17 +131,21 @@ export function renderPaletteFromImagePage(outerElement, params = {}) {
 
         if (name) {
             const colors = getCurrentColors(editorElement); // Собираем цвета
+            try {
+                const itemToSave = {
+                    name: name,
+                    colors: colors,
+                    type: PaletteTypes.IMAGE, // тип image-palette
+                    imageBase64: compressImage(imgElement, 0.7, 800) // сохраняем катринку
+                };
 
-            const itemToSave = {
-                name: name,
-                colors: colors,
-                type: PaletteTypes.IMAGE, // тип image-palette
-                imageBase64: imgElement.src // сохраняем катринку
-            };
-
-            if (saveItem(itemToSave)) {
-                alert('Saved!');
+                if (saveItem(itemToSave)) {
+                    alert('Saved!');
+                }
+            } catch (e) {
+                alert('Ошибка при сохранении или сжатии изображения: ' + e.message);
             }
+
         }
     });
 
