@@ -1,14 +1,12 @@
 import { renderPaletteEditorPage } from './pages/paletteEditorPage.js';
 import { renderPaletteFromImagePage } from './pages/paletteFromImagePage.js';
 import { renderGalleryPage } from './pages/galleryPage.js';
-import { renderLearnPage } from './pages/learnPage.js';
 import { renderGradientEditorPage } from './pages/gradientEditorPage.js';
 
 const routes = {
   '#palette-editor': renderPaletteEditorPage,
   '#palette-from-image': renderPaletteFromImagePage,
   '#gallery': renderGalleryPage,
-  '#learn': renderLearnPage,
   '#gradient-editor': renderGradientEditorPage
 };
 
@@ -19,14 +17,17 @@ export function router() {
 
   // Парсим параметры
   // Если queryString есть, превращаем его в объект, иначе - пустой объект
-  const params = queryString 
-    ? Object.fromEntries(new URLSearchParams(queryString)) 
+  const params = queryString
+    ? Object.fromEntries(new URLSearchParams(queryString))
     : {};
 
   // Находим рендер-функцию
   const render = routes[routePath] || renderPaletteEditorPage;
   const app = document.getElementById('app');
-  
-  app.innerHTML = '';
-  render(app, params);
+
+  if (app) {
+    app.innerHTML = '';
+    render(app, params);
+  }
+
 }
