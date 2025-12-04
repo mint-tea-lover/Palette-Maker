@@ -1,4 +1,4 @@
-import { button, createElement } from "../utils/createElement.js";
+import { createElement } from "../utils/createElement.js";
 import { initColorInput } from "./colorInput.js";
 import { initCopyButton, initDeleteButton } from "./buttons.js";
 import { PaletteSliders } from "./sliders.js"
