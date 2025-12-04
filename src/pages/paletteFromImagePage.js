@@ -1,7 +1,8 @@
-import { getCurrentColors, renderPaletteEditor, setPaletteColors } from "../components/paletteEditor.js";
+import { getCurrentColors, renderPaletteEditor, setPaletteColors, resetColorSliders } from "../components/paletteEditor.js";
 import { createElement } from "../utils/createElement.js";
 import { rgbToHex } from "../utils/colorConverter.js";
 import { saveItem, getItemById, updateItem, PaletteTypes } from "../utils/storage.js";
+
 
 const colorThief = new ColorThief();
 
@@ -162,6 +163,7 @@ function generatePalette(imgElement, editorElement) {
 
         // Обновляем отрисованную палитру
         setPaletteColors(editorElement, hexPalette);
+        resetColorSliders();
 
     } catch (e) {
         console.error("Ошибка при получении палитры. Убедитесь, что изображение загружено и доступно для Canvas (CORS).", e);

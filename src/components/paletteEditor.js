@@ -1,14 +1,26 @@
 import { button, createElement } from "../utils/createElement.js";
 import { initColorInput } from "./colorInput.js";
 import { initDeleteButton } from "./deleteButton.js";
+import { PaletteSliders } from "./sliders.js"
 
+
+let colorSliders = null;
 
 export function renderPaletteEditor(parent, colors) {
   const editor = createElement('div', parent, 'palette-editor');
 
   const palette = createElement('div', editor, 'palette-colors');
   const properties = createElement('div', editor, 'palette-properties');
-  properties.textContent = 'Lorem afkl;dskfllsdfldlfdjnjfngdjndgjnndf dfgdfgnjkdfngj sfdngfdjkg'
+
+  const slidersContainer = createElement('div', properties, ['sliders-container']);
+
+  // Создаем экземпляр слайдеров и сохраняем его в переменной модуля
+  colorSliders = new PaletteSliders(
+    slidersContainer,
+    palette,
+    // Колбэк должен использовать локальную ссылку на editorElement
+    (newHexColors) => { setPaletteColors(editor, newHexColors) }
+  );
 
   const swatches = [];
 
@@ -24,11 +36,10 @@ export function renderPaletteEditor(parent, colors) {
     }
   }
 
-  const addBtn = createElement('button', palette, ['palette-item', 'add-color-btn']);
-  addBtn.textContent = '+';
-  addBtn.addEventListener('click', () => {
-    appendColorSwatch(palette);
-  })
+  const addBtn = createAddColorBtn(palette);
+
+  
+
 
   return editor;
 }
@@ -43,13 +54,25 @@ function appendColorSwatch(parent, color) {
   const addBtn = parent.querySelector('.add-color-btn');
   parent.insertBefore(swatch, addBtn);
 
-  initColorInput(swatch, color);
-  initDeleteButton(swatch, deleteButton);
+  if (!color) color = 'rgb(160, 160, 169)';
 
-  if (color) {
-    swatch.style.backgroundColor = color;
-  }
+
+  initColorInput(swatch, color);
+  initDeleteButton(swatch, deleteButton, resetColorSliders);
+
+  swatch.style.backgroundColor = color;
+
   return swatch;
+}
+
+function createAddColorBtn(palette) {
+  const btn = createElement('button', palette, ['palette-item', 'add-color-btn']);
+  btn.textContent = '+';
+  btn.addEventListener('click', () => {
+    appendColorSwatch(palette);
+    resetColorSliders();
+  })
+  return btn;
 }
 
 // Собирает цвета палитры
@@ -65,25 +88,24 @@ export function getCurrentColors(parent) {
  * @param {Array<string>} hexColors Массив HEX-строк цветов (например, ['#FF0000', '#00FF00'])
  */
 export function setPaletteColors(editorElement, hexColors) {
-    // 1. Находим контейнер, который нужно очистить и обновить
-    const palette = editorElement.querySelector('.palette-colors');
-    
-    // 2. Очищаем все старые цвета и кнопку '+'
-    // Нам нужно удалить все, кроме самой родительской div, которую мы передали при рендере
-    while (palette.firstChild) {
-        palette.removeChild(palette.firstChild);
-    }
-    
-    // 3. Добавляем новые цвета
-    hexColors.forEach(hex => {
-        // Предполагаем, что appendColorSwatch умеет работать с HEX
-        appendColorSwatch(palette, hex);
-    });
-    
-    // 4. Добавляем кнопку '+' обратно
-    const addBtn = createElement('button', palette, ['palette-item', 'add-color-btn']);
-    addBtn.textContent = '+';
-    addBtn.addEventListener('click', () => {
-        appendColorSwatch(palette);
-    })
+  const palette = editorElement.querySelector('.palette-colors'); // контейнер, который нужно обновить
+
+  // Очищаем все старые цвета и кнопку '+'
+  while (palette.firstChild) {
+    palette.removeChild(palette.firstChild);
+  }
+
+  console.log(hexColors)
+  // Добавляем новые цвета
+  hexColors.forEach(hex => {
+    // Передаем цвета в формате HEX
+    appendColorSwatch(palette, hex);
+  });
+
+  // Добавляем кнопку '+' обратно
+  const addBtn = createAddColorBtn(palette);
+}
+
+export function resetColorSliders() {
+  colorSliders.resetAndInitialize();
 }
