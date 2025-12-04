@@ -94,7 +94,6 @@ export class PaletteSliders {
     _getHexColorsFromPalette() {
         const swatches = this.paletteContainer.querySelectorAll('.color-swatch');
         return Array.from(swatches).map(swatch => {
-            console.log(swatch.dataset.color)
             return swatch.dataset.color || '#FFFFFF'; 
         });
     }

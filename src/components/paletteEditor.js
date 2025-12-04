@@ -45,7 +45,6 @@ export function renderPaletteEditor(parent, colors) {
 
 
 function appendColorSwatch(parent, color) {
-  console.log(color)
   const swatch = createElement('div', parent, ['color-swatch', 'palette-item']);
   // const colorInput = createElement('input', swatch, ['color-input'], { 'type': 'color' });
 
@@ -64,8 +63,7 @@ function appendColorSwatch(parent, color) {
   swatch.dataset.color = color.startsWith('#') ? color: rgbStringToHex(color);
 
   const pickrInstance = initCustomColorPicker(swatch, color, (newColor) => {
-      // Здесь можно добавить логику, если нужно реагировать на изменение мгновенно
-      // Например, обновлять градиент в реальном времени
+      resetColorSliders();
   });
 
   initDeleteButton(swatch, deleteButton, () => {
