@@ -36,10 +36,8 @@ export function renderPaletteEditor(parent, colors) {
     }
   }
 
+  resetColorSliders();
   const addBtn = createAddColorBtn(palette);
-
-  
-
 
   return editor;
 }
