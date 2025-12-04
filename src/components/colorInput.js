@@ -1,5 +1,6 @@
 import { rgbToHex } from "../utils/colorConverter.js";
 import { resetColorSliders } from "./paletteEditor.js";
+import { createElement } from "../utils/createElement.js";
 
 export function initColorInput(colorSwatch, color) {
   const inp = colorSwatch.querySelector('.color-input');
@@ -36,4 +37,55 @@ export function initColorInput(colorSwatch, color) {
     colorSwatch.style.backgroundColor = e.target.value
     resetColorSliders();
   })
+}
+
+// src/utils/colorPicker.js
+
+export function initCustomColorPicker(containerElement, defaultColor, onChangeCallback) {
+  // Создаем элемент, к которому привяжется Pickr
+  const pickerElement = createElement('div', containerElement, ['color-picker-trigger']);
+  const swatch = containerElement.querySelector('.color-swatch');
+
+  // Инициализация Pickr
+  const newElement = document.createElement('div');
+    containerElement.appendChild(newElement);
+  
+    const pickr = new Pickr({
+      el: newElement,
+      default: defaultColor,
+      theme: 'nano',
+      lockOpacity: true,
+      closeOnScroll: false,
+  
+      components: {
+        preview: true,
+        opacity: true,
+        hue: true,
+  
+        interaction: {
+          hex: true,
+          rgba: true,
+          hsva: true,
+          input: true,
+        }
+      },
+      position: 'left-middle',
+    });
+
+  // СОБЫТИЯ
+
+  // При изменении цвета
+  pickr.on('change', (color, source, instance) => {
+    const hexColor = color.toHEXA().toString();
+    
+    // Обновляем swatch
+    containerElement.style.backgroundColor = hexColor;
+    containerElement.dataset.color = hexColor; 
+    
+    containerElement.dispatchEvent(new Event('input', { bubbles: true }));
+    // Вызываем внешний callback (например, для обновления градиента)
+    if (onChangeCallback) onChangeCallback(hexColor);
+  });
+  
+  return pickr;
 }

@@ -1,0 +1,23 @@
+
+/* Стили для контейнера Pickr внутри вашего swatch */
+.color-swatch .pickr {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Чтобы был поверх фона, но под кнопками удаления */
+}
+
+/* Сама кнопка Pickr */
+.color-swatch .pcr-button {
+    width: 100% !important;
+    height: 100% !important;
+    opacity: 0 !important; /* Делаем невидимой */
+    border-radius: 0.4rem;
+}
+
+/* Убедитесь, что кнопки управления (удалить/копировать) выше пикера */
+.color-swatch-btns-group {
+    z-index: 10; 
+}

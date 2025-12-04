@@ -94,9 +94,8 @@ export class PaletteSliders {
     _getHexColorsFromPalette() {
         const swatches = this.paletteContainer.querySelectorAll('.color-swatch');
         return Array.from(swatches).map(swatch => {
-            const colorInput = swatch.querySelector('.color-input');
-            // Считываем значение из input[type="color"], оно всегда в HEX
-            return colorInput ? colorInput.value : '#FFFFFF';
+            console.log(swatch.dataset.color)
+            return swatch.dataset.color || '#FFFFFF'; 
         });
     }
 

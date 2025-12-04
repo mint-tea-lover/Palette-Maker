@@ -1,7 +1,8 @@
 import { createElement } from "../utils/createElement.js";
-import { initColorInput } from "./colorInput.js";
+import { initCustomColorPicker } from "./colorInput.js";
 import { initCopyButton, initDeleteButton } from "./buttons.js";
 import { PaletteSliders } from "./sliders.js"
+import { rgbStringToHex } from "../utils/colorConverter.js";
 
 
 let colorSliders = null;
@@ -44,8 +45,11 @@ export function renderPaletteEditor(parent, colors) {
 
 
 function appendColorSwatch(parent, color) {
+  console.log(color)
   const swatch = createElement('div', parent, ['color-swatch', 'palette-item']);
-  const colorInput = createElement('input', swatch, ['color-input'], { 'type': 'color' });
+  // const colorInput = createElement('input', swatch, ['color-input'], { 'type': 'color' });
+
+  
   const swatchButtonsGroup = createElement('div', swatch, ['color-swatch-btns-group']);
   const deleteButton = createElement('button', swatchButtonsGroup, ['color-swatch-btn']);
   const copyButton = createElement('button', swatchButtonsGroup, ['color-swatch-btn']);
@@ -56,12 +60,20 @@ function appendColorSwatch(parent, color) {
 
   if (!color) color = 'rgb(160, 160, 169)';
 
+  swatch.style.backgroundColor = color;
+  swatch.dataset.color = color.startsWith('#') ? color: rgbStringToHex(color);
 
-  initColorInput(swatch, color);
-  initDeleteButton(swatch, deleteButton, resetColorSliders);
+  const pickrInstance = initCustomColorPicker(swatch, color, (newColor) => {
+      // Здесь можно добавить логику, если нужно реагировать на изменение мгновенно
+      // Например, обновлять градиент в реальном времени
+  });
+
+  initDeleteButton(swatch, deleteButton, () => {
+    pickrInstance.destroyAndRemove();
+    resetColorSliders();
+  });
   initCopyButton(swatch, copyButton);
 
-  swatch.style.backgroundColor = color;
 
   return swatch;
 }
@@ -78,8 +90,10 @@ function createAddColorBtn(palette) {
 
 // Собирает цвета палитры
 export function getCurrentColors(parent) {
+  // const swatches = parent.querySelectorAll('.color-swatch');
+  // return Array.from(swatches).map(swatch => getComputedStyle(swatch).backgroundColor);
   const swatches = parent.querySelectorAll('.color-swatch');
-  return Array.from(swatches).map(swatch => getComputedStyle(swatch).backgroundColor);
+  return Array.from(swatches).map(swatch => swatch.dataset.color);
 }
 
 

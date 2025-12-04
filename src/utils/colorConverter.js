@@ -23,6 +23,40 @@ export function hexToRgb(hex) {
     ];
 }
 
+/**
+ * Преобразует строку RGB/RGBA в HEX-код.
+ * @param {string} rgbString Строка в формате 'rgb(R, G, B)' или 'rgba(R, G, B, A)'.
+ * @returns {string} HEX-код цвета (например, '#FF6400') или '#000000' в случае ошибки.
+ */
+export function rgbStringToHex(rgbString) {
+    if (!rgbString) return '#000000';
+
+    // 1. Извлекаем числовые компоненты (R, G, B, A) с помощью регулярного выражения.
+    // Регулярное выражение /\d+/g ищет все группы из одной или более цифр.
+    const components = rgbString.match(/\d+/g);
+
+    if (!components || components.length < 3) {
+        // Если не удалось извлечь 3 компонента, возвращаем черный цвет по умолчанию.
+        console.error('Некорректный формат строки RGB/RGBA:', rgbString);
+        return '#000000'; 
+    }
+
+    // 2. Вспомогательная функция для преобразования одного компонента (0-255) в HEX
+    const componentToHex = (c) => {
+        // Преобразуем число в 16-ричную систему
+        const hex = parseInt(c, 10).toString(16);
+        // Добавляем ведущий ноль, если HEX состоит из одной цифры (например, 'a' -> '0a')
+        return hex.length === 1 ? '0' + hex : hex;
+    };
+
+    const r = components[0];
+    const g = components[1];
+    const b = components[2];
+
+    // 3. Конвертируем и объединяем
+    return `#${componentToHex(r)}${componentToHex(g)}${componentToHex(b)}`.toUpperCase();
+}
+
 
 export function hslToRgb(h, s, l) {
     s /= 100;
