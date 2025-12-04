@@ -1,0 +1,34 @@
+.sliders-container {
+}
+
+.color-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%; 
+  height: 25px; 
+  background: var(--bg-c); 
+  border: var(--primary-c) 2px solid;
+  border-radius: 4px;
+  outline: none;
+  opacity: 0.7;
+  transition: opacity .2s;
+}
+
+.color-slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+.color-slider::-webkit-slider-thumb{
+-webkit-appearance: none;
+  width: 10px; 
+  height: 30px; 
+  background: var(--bg-c);
+  cursor: pointer; 
+  border-radius: 3px;
+  border: var(--primary-c) 2px solid;
+
+}
+
+.color-slider-label {
+  display: block;
+}
