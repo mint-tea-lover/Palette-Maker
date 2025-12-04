@@ -44,6 +44,11 @@
   min-height: 0;
 }
 
+.generate-btn {
+  background-color: var(--primary-c);
+  color: var(--light-text-c);
+}
+
 /* Медиа-запрос для маленького экрана (до 650px) */
 @media screen and (max-width: 650px) {
   .img-palette-container {

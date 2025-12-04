@@ -2,15 +2,14 @@ function initDropdownMenu(dropdownEl) {
   const button = dropdownEl.querySelector('.dropdown-toggle');
   const menu = dropdownEl.querySelector('.dropdown-menu');
 
-  button.addEventListener('click', () => {
+  button.addEventListener('click', (e) => {
     menu.classList.toggle('visible');
+    e.stopPropagation()
   });
 
-  // Закрываем при клике вне меню
+  // Закрываем при клике
   document.addEventListener('click', (e) => {
-    if (!dropdownEl.contains(e.target)) {
-      menu.classList.remove('visible');
-    }
+    menu.classList.remove('visible');
   });
 }
 
