@@ -1,6 +1,6 @@
 import { button, createElement } from "../utils/createElement.js";
 import { initColorInput } from "./colorInput.js";
-import { initDeleteButton } from "./deleteButton.js";
+import { initCopyButton, initDeleteButton } from "./buttons.js";
 import { PaletteSliders } from "./sliders.js"
 
 
@@ -46,9 +46,11 @@ export function renderPaletteEditor(parent, colors) {
 function appendColorSwatch(parent, color) {
   const swatch = createElement('div', parent, ['color-swatch', 'palette-item']);
   const colorInput = createElement('input', swatch, ['color-input'], { 'type': 'color' });
-  const deleteButton = createElement('button', swatch, ['delete-color-btn', 'delete-btn']);
+  const swatchButtonsGroup = createElement('div', swatch, ['color-swatch-btns-group']);
+  const deleteButton = createElement('button', swatchButtonsGroup, ['color-swatch-btn']);
+  const copyButton = createElement('button', swatchButtonsGroup, ['color-swatch-btn']);
   deleteButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 -960 960 960" width="1em" fill="currentColor"><path d="M280-120q-33 0-56.5-23.5T200-200v-520q-17 0-28.5-11.5T160-760q0-17 11.5-28.5T200-800h160q0-17 11.5-28.5T400-840h160q17 0 28.5 11.5T600-800h160q17 0 28.5 11.5T800-760q0 17-11.5 28.5T760-720v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM400-280q17 0 28.5-11.5T440-320v-280q0-17-11.5-28.5T400-640q-17 0-28.5 11.5T360-600v280q0 17 11.5 28.5T400-280Zm160 0q17 0 28.5-11.5T600-320v-280q0-17-11.5-28.5T560-640q-17 0-28.5 11.5T520-600v280q0 17 11.5 28.5T560-280ZM280-720v520-520Z"/></svg>`;
-
+  copyButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 -960 960 960" width="1em" fill="currentColor"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-520q0-17 11.5-28.5T160-720q17 0 28.5 11.5T200-680v520h400q17 0 28.5 11.5T640-120q0 17-11.5 28.5T600-80H200Zm160-240v-480 480Z"/></svg>`;
   const addBtn = parent.querySelector('.add-color-btn');
   parent.insertBefore(swatch, addBtn);
 
@@ -57,6 +59,7 @@ function appendColorSwatch(parent, color) {
 
   initColorInput(swatch, color);
   initDeleteButton(swatch, deleteButton, resetColorSliders);
+  initCopyButton(swatch, copyButton);
 
   swatch.style.backgroundColor = color;
 
@@ -93,7 +96,6 @@ export function setPaletteColors(editorElement, hexColors) {
     palette.removeChild(palette.firstChild);
   }
 
-  console.log(hexColors)
   // Добавляем новые цвета
   hexColors.forEach(hex => {
     // Передаем цвета в формате HEX

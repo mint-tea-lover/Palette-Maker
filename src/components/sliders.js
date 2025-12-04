@@ -85,7 +85,6 @@ export class PaletteSliders {
         else if (sliderId.includes('slider-l')) component = 'l';
 
         this.correction[component] = value;
-        console.log(this.correction)
         this.applyCorrection();
     }
 
@@ -106,7 +105,6 @@ export class PaletteSliders {
      */
     applyCorrection() {
         if (this.originalHslPalette.length === 0) return;
-        console.log(this.originalHslPalette, this.correction)
         const newHexPalette = this.originalHslPalette.map(hsl => {
             let h = hsl.h + this.correction.h;
             let s = hsl.s + this.correction.s;

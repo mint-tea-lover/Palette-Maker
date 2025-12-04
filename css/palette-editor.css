@@ -71,10 +71,16 @@
   right: 0;
 }
 
-.delete-color-btn {
+.color-swatch-btns-group {
   position: absolute;
   top: 0.3rem;
   left: 0.3rem;
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+}
+
+.color-swatch-btn {
   box-shadow: 0 0 3px 2px var(--shadow-c);
   opacity: 0;
   padding: 2px;
@@ -87,12 +93,12 @@
   justify-content: center;
 }
 
-.delete-color-btn svg {
+.color-swatch-btn svg {
   width: 1.3rem;
   height: 1.3rem;
 }
 
-.color-swatch:hover .delete-color-btn {
+.color-swatch:hover .color-swatch-btn {
   opacity: 1;
 }
 
@@ -120,7 +126,7 @@
   }
 
 
-  .delete-color-btn {
+  .color-swatch-btn {
     opacity: 1;
   }
 }

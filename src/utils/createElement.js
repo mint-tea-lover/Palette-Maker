@@ -24,16 +24,6 @@ export function createElement(tag, parent, classes = [], attr={}) {
   return el;
 }
 
-export function div(parent, classes = []) {
-  return createElement('div', parent, classes);
-}
 
-export function button(parent, classes = []) {
-  return createElement('button', parent, classes);
-}
-
-export function section(parent, classes = []) {
-  return createElement('section', parent, classes);
-}
 
 

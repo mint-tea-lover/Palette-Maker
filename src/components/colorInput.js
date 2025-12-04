@@ -14,9 +14,20 @@ export function initColorInput(colorSwatch, color) {
   }
 
 
-  const del = colorSwatch.querySelector('.delete-color-btn');
+  const actionButtons = colorSwatch.querySelectorAll('.color-swatch-btn');
   colorSwatch.addEventListener('click', (e) => {
-    if (!del.contains(e.target)) {
+    let clickedActionButton = false;
+    
+    // Проходим по всем найденным кнопкам
+    actionButtons.forEach(button => {
+      // И используем contains() для проверки
+      if (button.contains(e.target)) {
+        clickedActionButton = true;
+      }
+    });
+
+    // 2. Если клик не попал ни в одну из кнопок, открываем color picker
+    if (!clickedActionButton) {
       inp.click();
     }
   })
