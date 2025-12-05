@@ -158,7 +158,6 @@ export function renderPaletteFromImagePage(outerElement, params = {}) {
  */
 function generatePalette(imgElement, editorElement) {
     try {
-        // Получаем палитру из 5 цветов (количество можно настроить)
         const rgbPalette = colorThief.getPalette(imgElement, getCurrentColors(editorElement).length, 10);
 
         if (rgbPalette === null) {
